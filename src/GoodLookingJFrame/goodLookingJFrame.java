@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 
 /**
  * 
@@ -16,7 +17,7 @@ import javax.swing.JPanel;
  * This application utilizes swings tools to create the GUI
  * 
  * @author Darrel2018
- * @version 0.3
+ * @version 0.4
  * @since 7/6/2019
  *
  */
@@ -25,14 +26,13 @@ public class goodLookingJFrame extends Canvas {
 	private static final long serialVersionUID = 1L;
 	
 	private JFrame frame;
-	private JPanel mPanel, sidePanel, topPanel, sideIconPanel1, sideIconPanel2;
-	private JLabel sideIcon, employeeBenifitsLabel, sideIcon2, giftsAIncetives;
+	private JPanel mPanel, sidePanel, topPanel, sideIconPanel1;
+	private JLabel sideIcon, sideIconText, textLabel;
 	
 	public goodLookingJFrame(){
 		
 		frame = new JFrame();
 		mPanel = new JPanel();
-		topPanel = new JPanel();
 		
 		createView();
 	}
@@ -41,14 +41,9 @@ public class goodLookingJFrame extends Canvas {
 		
 		frame.getContentPane().add(mPanel);
 		
-		topPanel.setSize(new Dimension(630, 130));
-		topPanel.setLocation(265, 70);
-		
 		frame.add(createSidePanel());
-		frame.add(topPanel);
+		frame.add(createTopPanel());
 		
-		
-		topPanel.setBackground(getColor(122, 72, 221));
 	}
 	
 	private Color getColor(int r, int g, int b){
@@ -56,40 +51,77 @@ public class goodLookingJFrame extends Canvas {
 		return color;
 	}
 	
+	private JPanel createTopPanel(){
+		topPanel = new JPanel();
+		
+		topPanel.setSize(new Dimension(630, 130));
+		topPanel.setLayout(null);
+		topPanel.setLocation(265, 70);
+		
+		topPanel.add(createTextLabel(20, 10, "Adminstrations/Funding/", 
+				new Font("Segoe UI", 2, 14), 170));
+		
+		topPanel.add(createTextLabel(20, 60, "Transaction History for _____________________", 
+				new Font("Segoe UI", 0, 24), 460));
+		
+		topPanel.setBackground(getColor(122, 72, 221));
+		
+		return topPanel;
+	}
+	
+	private JLabel createTextLabel(int x, int y, String text, Font font, int textWidth){
+		textLabel = new JLabel();
+		
+		textLabel.setText(text);
+		textLabel.setFont(font);
+		textLabel.setBounds(x, y, textWidth, 50);
+		
+		textLabel.setForeground(getColor(240, 240, 240));
+		
+		return textLabel;
+	}
+	
 	private JPanel createSidePanel(){
 		sidePanel = new JPanel();
+		JSeparator sep = new JSeparator();
+		sep.setBounds(5, 90, 255, 10);
 		
 		sidePanel.setSize(new Dimension(265, 550));
 		sidePanel.setLayout(null);
 		sidePanel.setBackground(getColor(76, 0, 153));
 		
 		// adding components
-		sidePanel.add(createSideIconPanel(0, 120, getColor(85, 65, 118), "Employee Benifits"));
-		sidePanel.add(createSideIconPanel(0, 170, getColor(64, 43, 100), "Gifts & incentives"));
+		sidePanel.add(createTextLabel(20, 30, "Good-Looking-Frame", new Font("Segoe UI", 1, 18), 180));
+		sidePanel.add(sep);
+		sidePanel.add(createSideIconPanel(0, 120, getColor(85, 65, 118), "Employee Benifits", "res\\images\\home.png"));
+		sidePanel.add(createSideIconPanel(0, 170, getColor(64, 43, 100), "Gifts & incentives", "res\\images\\gift.png"));
+		sidePanel.add(createSideIconPanel(0, 220, getColor(64, 43, 100), "Comming Soon", "res\\images\\plus.png"));
+		sidePanel.add(createSideIconPanel(0, 270, getColor(76, 0, 153), "Administration", "res\\images\\user.png"));
+		sidePanel.add(createSideIconPanel(0, 320, getColor(76, 0, 153), "Document Store", "res\\images\\document.png"));
 		
 		return sidePanel;
 	}
 	
-	private JPanel createSideIconPanel(int x, int y, Color color, String text){
+	private JPanel createSideIconPanel(int x, int y, Color color, String text, String iconPath){
 		
 		sideIconPanel1 = new JPanel();
 		sideIcon = new JLabel();
-		employeeBenifitsLabel = new JLabel();
+		sideIconText = new JLabel();
 		
 		sideIconPanel1.setBounds(x, y, 265, 50);
 		sideIconPanel1.setLayout(null);
 		
-		sideIcon.setIcon(new ImageIcon("res\\images\\home.png"));
+		sideIcon.setIcon(new ImageIcon(iconPath));
 		sideIcon.setBounds(30, 15, 15, 15);
 		
-		employeeBenifitsLabel.setText(text);
-		employeeBenifitsLabel.setFont(new Font("Segoe UI", 2, 14));
-		employeeBenifitsLabel.setBounds(60, -3, 130, 50);
+		sideIconText.setText(text);
+		sideIconText.setFont(new Font("Segoe UI", 2, 14));
+		sideIconText.setBounds(60, -3, 130, 50);
 		
 		sideIconPanel1.add(sideIcon);
-		sideIconPanel1.add(employeeBenifitsLabel);
+		sideIconPanel1.add(sideIconText);
 		sideIconPanel1.setBackground(color);
-		employeeBenifitsLabel.setForeground(getColor(240, 240, 240));
+		sideIconText.setForeground(getColor(240, 240, 240));
 		
 		return sideIconPanel1;
 	}
