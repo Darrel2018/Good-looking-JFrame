@@ -1,15 +1,21 @@
 package GoodLookingJFrame;
 
+import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 
 /**
  * 
@@ -28,27 +34,68 @@ public class goodLookingJFrame extends Canvas {
 	private JFrame frame;
 	private JPanel mPanel, sidePanel, topPanel, sideIconPanel1;
 	private JLabel sideIcon, sideIconText, textLabel;
+	JTable table;
 	
 	public goodLookingJFrame(){
 		
 		frame = new JFrame();
-		mPanel = new JPanel();
 		
 		createView();
 	}
 	
 	public void createView(){
 		
-		frame.getContentPane().add(mPanel);
-		
 		frame.add(createSidePanel());
 		frame.add(createTopPanel());
+		frame.add(createMainPanel());
 		
 	}
 	
 	private Color getColor(int r, int g, int b){
 		Color color = new Color(r, g, b);
 		return color;
+	}
+	
+	private JPanel createMainPanel(){
+		
+		mPanel = new JPanel();
+		mPanel.setLayout(new BorderLayout());
+		mPanel.setSize(new Dimension(610, 247));
+		mPanel.setLocation(285, 275);
+		mPanel.setBackground(getColor(255, 255, 255));
+		
+		String[] columnNames = {"DATE", "REF .NO", "PARTICULARS"};
+		String[][] data = {
+				{"1", "2", "3"},
+				{"3", "2", "1"},
+				{"2", "1", "3"}};
+		
+		table = new JTable(data, columnNames);
+		
+		JScrollPane jsp = new JScrollPane(table);
+		jsp.setBorder(BorderFactory.createEmptyBorder());
+		
+		table.setFillsViewportHeight(true);
+		
+		table.setCellSelectionEnabled(false);
+		table.setAutoCreateRowSorter(true);
+		table.setAutoCreateColumnsFromModel(true);
+		
+		JTableHeader head = table.getTableHeader();
+		head.setBorder(BorderFactory.createLineBorder(getColor(255, 255, 255)));
+		head.setBackground(getColor(255, 255, 255));
+		
+		table.setGridColor(getColor(255, 255, 255));
+		
+		TableColumn column = null;
+		for(int i = 0; i < 3; i++){
+			column = table.getColumnModel().getColumn(i);
+			column.setResizable(false);
+		}
+		
+		mPanel.add(jsp, BorderLayout.CENTER);
+		
+		return mPanel;
 	}
 	
 	private JPanel createTopPanel(){
