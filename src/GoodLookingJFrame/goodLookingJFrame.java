@@ -2,9 +2,12 @@ package GoodLookingJFrame;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -34,7 +37,7 @@ public class goodLookingJFrame extends Canvas {
 	private JFrame frame;
 	private JPanel mPanel, sidePanel, topPanel, sideIconPanel1;
 	private JLabel sideIcon, sideIconText, textLabel;
-	JTable table;
+	private JTable table;
 	
 	public goodLookingJFrame(){
 		
@@ -48,9 +51,36 @@ public class goodLookingJFrame extends Canvas {
 		frame.add(createSidePanel());
 		frame.add(createTopPanel());
 		frame.add(createMainPanel());
+		frame.add(createExitPanel());
 		
 	}
 	
+	private JPanel createExitPanel() {
+		
+		JPanel panel = new JPanel();
+		
+		panel.setLayout(null);
+		panel.setSize(new Dimension(50, 50));
+		panel.setLocation(850, 0);
+		
+		textLabel = createTextLabel(20, 0, "X", new Font("Segoe UI", 0, 24), 30, getColor(0, 0, 0));
+		textLabel.addMouseListener(new MouseListener() {
+			
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+			}
+		});
+		
+		panel.add(textLabel);
+		
+		return panel;
+	}
+
 	private Color getColor(int r, int g, int b){
 		Color color = new Color(r, g, b);
 		return color;
@@ -60,7 +90,7 @@ public class goodLookingJFrame extends Canvas {
 		
 		mPanel = new JPanel();
 		mPanel.setLayout(new BorderLayout());
-		mPanel.setSize(new Dimension(610, 247));
+		mPanel.setSize(new Dimension(580, 247));
 		mPanel.setLocation(285, 275);
 		mPanel.setBackground(getColor(255, 255, 255));
 		
@@ -93,9 +123,24 @@ public class goodLookingJFrame extends Canvas {
 			column.setResizable(false);
 		}
 		
+		
+		
+		frame.add(createComboBox(284, 240, 180, 10));
+		frame.add(createComboBox(488, 240, 180, 10));
+		
 		mPanel.add(jsp, BorderLayout.CENTER);
 		
 		return mPanel;
+	}
+	
+	private Choice createComboBox(int x, int y, int width, int height){
+		
+		Choice c = new Choice();
+		
+		c.setSize(new Dimension(width, height));
+		c.setLocation(x, y);
+		
+		return c;
 	}
 	
 	private JPanel createTopPanel(){
@@ -106,24 +151,24 @@ public class goodLookingJFrame extends Canvas {
 		topPanel.setLocation(265, 70);
 		
 		topPanel.add(createTextLabel(20, 10, "Adminstrations/Funding/", 
-				new Font("Segoe UI", 2, 14), 170));
+				new Font("Segoe UI", 2, 14), 170, getColor(240, 240, 240)));
 		
 		topPanel.add(createTextLabel(20, 60, "Transaction History for _____________________", 
-				new Font("Segoe UI", 0, 24), 460));
+				new Font("Segoe UI", 0, 24), 460, getColor(240, 240, 240)));
 		
 		topPanel.setBackground(getColor(122, 72, 221));
 		
 		return topPanel;
 	}
 	
-	private JLabel createTextLabel(int x, int y, String text, Font font, int textWidth){
+	private JLabel createTextLabel(int x, int y, String text, Font font, int textWidth, Color color){
 		textLabel = new JLabel();
 		
 		textLabel.setText(text);
 		textLabel.setFont(font);
 		textLabel.setBounds(x, y, textWidth, 50);
 		
-		textLabel.setForeground(getColor(240, 240, 240));
+		textLabel.setForeground(color);
 		
 		return textLabel;
 	}
@@ -138,7 +183,7 @@ public class goodLookingJFrame extends Canvas {
 		sidePanel.setBackground(getColor(76, 0, 153));
 		
 		// adding components
-		sidePanel.add(createTextLabel(20, 30, "Good-Looking-Frame", new Font("Segoe UI", 1, 18), 180));
+		sidePanel.add(createTextLabel(20, 30, "Good-Looking-Frame", new Font("Segoe UI", 1, 18), 180, getColor(240, 240, 240)));
 		sidePanel.add(sep);
 		sidePanel.add(createSideIconPanel(0, 120, getColor(85, 65, 118), "Employee Benifits", "res\\images\\home.png"));
 		sidePanel.add(createSideIconPanel(0, 170, getColor(64, 43, 100), "Gifts & incentives", "res\\images\\gift.png"));
@@ -182,6 +227,7 @@ public class goodLookingJFrame extends Canvas {
 		JF.frame.setSize(900, 550);
 		JF.frame.setLocationRelativeTo(null);
 		JF.frame.setResizable(false);
+		JF.frame.setUndecorated(true);
 		
 		JF.frame.setVisible(true);
 	}
