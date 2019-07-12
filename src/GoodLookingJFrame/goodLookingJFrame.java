@@ -21,7 +21,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
 
 /**
  * 
@@ -165,12 +164,6 @@ public class goodLookingJFrame extends Canvas {
 		table.setShowGrid(false);
 		
 		table.setRowHeight(20);
-		
-		/*TableColumn column = null;
-		for(int i = 0; i < 3; i++){
-			column = table.getColumnModel().getColumn(i);
-			column.setResizable(false);
-		}*/
 		
 		frame.add(createComboBox(284, 240, 180, 10));
 		frame.add(createComboBox(488, 240, 180, 10));
