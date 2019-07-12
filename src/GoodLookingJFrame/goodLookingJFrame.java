@@ -129,7 +129,7 @@ public class goodLookingJFrame extends Canvas {
 		return color;
 	}
 	
-	// Creates the main where the table is created
+	// Creates the main panel where the table is created
 	private JPanel createMainPanel(){
 		
 		mPanel = new JPanel();
@@ -159,15 +159,18 @@ public class goodLookingJFrame extends Canvas {
 		head.setBorder(BorderFactory.createLineBorder(setColor(255, 255, 255)));
 		head.setBackground(setColor(255, 255, 255));
 		
-		table.setGridColor(setColor(255, 255, 255));
+		table.setRowSelectionAllowed(true);
+		table.setSelectionBackground(setColor(122, 72, 221));
+		table.setSelectionForeground(setColor(240, 240, 240));
+		table.setShowGrid(false);
 		
-		TableColumn column = null;
+		table.setRowHeight(20);
+		
+		/*TableColumn column = null;
 		for(int i = 0; i < 3; i++){
 			column = table.getColumnModel().getColumn(i);
 			column.setResizable(false);
-		}
-		
-		
+		}*/
 		
 		frame.add(createComboBox(284, 240, 180, 10));
 		frame.add(createComboBox(488, 240, 180, 10));
@@ -181,6 +184,11 @@ public class goodLookingJFrame extends Canvas {
 	private Choice createComboBox(int x, int y, int width, int height){
 		
 		Choice c = new Choice();
+		
+		c.add("1");
+		c.add("2");
+		c.add("3");
+		c.add("4");
 		
 		c.setSize(new Dimension(width, height));
 		c.setLocation(x, y);
